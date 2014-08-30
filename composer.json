@@ -1,0 +1,29 @@
+{
+    "name":         "tadcka/generator-bundle",
+    "homepage":     "https://github.com/tadcka/TadckaGeneratorBundle",
+    "description":  "Generates models structure.",
+    "keywords":     [],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name":   "Tadas Gliaubicas",
+            "email":  "tadcka89@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle" : ">=2.3",
+        "symfony/console": "~2.0",
+	"sensio/generator-bundle": "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tadcka\\Bundle\\GeneratorBundle\\": ""
+        }
+    }
+}

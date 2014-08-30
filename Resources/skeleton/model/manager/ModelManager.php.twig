@@ -1,0 +1,20 @@
+<?php
+
+namespace {{ namespace }}\Model\Manager;
+
+abstract class {{ model_name }}Manager implements {{ model_name }}ManagerInterface
+{
+{% block class_body %}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function create()
+    {
+        $className = $this->getClass();
+        $value = new $className;
+
+        return $value;
+    }
+{% endblock class_body %}
+}

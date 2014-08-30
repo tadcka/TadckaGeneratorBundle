@@ -1,0 +1,54 @@
+<?php
+
+namespace {{ namespace }}\Model;
+
+class {{ model_name }} implements {{ model_name }}Interface
+{
+{% block class_body %}
+{% for field in fields %}
+
+    /**
+     * @var {{ field.type }}
+     */
+    protected ${{ field.fieldName }}
+{% endfor %}
+{% for field in fields %}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    {
+        $this->{{ field.fieldName }} = ${{ field.fieldName }};
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get{{ field.fieldName|capitalize }}()
+    {
+        return $this->{{ field.fieldName }};
+    }
+{% if field.type == 'array' %}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function add{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    {
+        $this->{{ field.fieldName }}[] = ${{ field.fieldName }};
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    {
+        // TODO: Implement remove{{ field.fieldName|capitalize }}() method.
+    }
+{% endif %}
+{% endfor %}
+{% endblock class_body %}
+}

@@ -1,0 +1,43 @@
+<?php
+
+namespace {{ namespace }}\Model;
+
+interface {{ model_name }}Interface
+{
+{% block class_body %}
+{% for field in fields %}
+
+    /**
+     * Set {{ field.fieldName }}.
+     *
+     * @param {{ field.type }} ${{ field.fieldName }}
+     *
+     * @return {{ model_name }}Interface
+     */
+    public function set{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+
+    /**
+     * Get {{ field.fieldName }}.
+     *
+     * @return {{ field.type }}
+     */
+    public function get{{ field.fieldName|capitalize }}();
+{% if field.type == 'array' %}
+
+    /**
+     * Add {{ field.fieldName }}.
+     *
+     * @param {{ field.type }} ${{ field.fieldName }}
+     */
+    public function add{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+
+    /**
+     * Remove {{ field.fieldName }}.
+     *
+     * @param {{ field.type }} ${{ field.fieldName }}
+     */
+    public function remove{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+{% endif %}
+{% endfor %}
+{% endblock class_body %}
+}

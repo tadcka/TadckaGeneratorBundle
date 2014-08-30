@@ -1,0 +1,50 @@
+<?php
+
+namespace {{ namespace }}\Model\Manager;
+
+use {{ namespace }}\Model\{{ model_name }}Interface;
+
+interface {{ model_name }}ManagerInterface
+{
+{% block class_body %}
+    /**
+     * Create new {{ model_name }} object.
+     *
+     * @return {{ model_name }}Interface
+     */
+    public function create();
+
+    /**
+     * Add {{ model_name }} object from persistent layer.
+     *
+     * @param {{ model_name }}Interface $value
+     * @param bool $save
+     */
+    public function add({{ model_name }}Interface $value, $save = false);
+
+    /**
+     * Remove {{ model_name }} object from persistent layer.
+     *
+     * @param {{ model_name }}Interface $value
+     * @param bool $save
+     */
+    public function remove({{ model_name }}Interface $value, $save = false);
+
+    /**
+     * Save persistent layer.
+     */
+    public function save();
+
+    /**
+     * Clear {{ model_name }} objects from persistent layer.
+     */
+    public function clear();
+
+    /**
+     * Get {{ model_name }} object class name.
+     *
+     * @return string
+     */
+    public function getClass();
+{% endblock class_body %}
+}

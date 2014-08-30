@@ -1,0 +1,4 @@
+TadckaGeneratorBundle
+=====================
+
+Generates models structure.

@@ -44,17 +44,24 @@ class DoctrineModelManagerGenerator extends Generator
      * @param BundleInterface $bundle
      * @param string $model
      * @param string $dbDriver
+     * @param string $format
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function generate(BundleInterface $bundle, $model, $dbDriver)
+    public function generate(BundleInterface $bundle, $model, $dbDriver, $format)
     {
         if (false === ModelManagerInfo::isDoctrineManager($dbDriver)) {
             throw new \InvalidArgumentException(sprintf('Not found db driver "%s"', $dbDriver));
         }
 
         $dir = $bundle->getPath();
+
+        $managerInterface = $dir . '/Model/Manager/' . $model . 'ManagerInterface.php';
+        if (false === $this->filesystem->exists($managerInterface)) {
+            throw new \RuntimeException(sprintf('Model manager interface "%s" not exists', $managerInterface));
+        }
+
         $managerDrivers = ModelManagerInfo::getDoctrineManagerDrivers();
 
         $managerFile = $dir . '/Doctrine/' . $managerDrivers[$dbDriver] . '/' . $model . 'Manager.php';

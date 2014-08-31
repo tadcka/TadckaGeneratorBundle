@@ -101,7 +101,7 @@ class TadckaModelGenerator extends Generator
             if (ModelManagerInfo::isDoctrineManager($dbDriver)) {
                 $doctrineManagerGenerator = new DoctrineModelManagerGenerator($this->filesystem);
                 $doctrineManagerGenerator->setSkeletonDirs($skeletonDirs);
-                $doctrineManagerGenerator->generate($bundle, $model, $dbDriver);
+                $doctrineManagerGenerator->generate($bundle, $model, $dbDriver, $format);
             }
         }
     }

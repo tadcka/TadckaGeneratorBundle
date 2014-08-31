@@ -20,9 +20,18 @@ use Tadcka\Bundle\GeneratorBundle\Generator\DoctrineModelManagerGenerator;
  */
 class DoctrineModelManagerGeneratorTest extends GeneratorTest
 {
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGenerateModelManagerInterfaceNotExists()
+    {
+        $this->generate('orm', 'xml');
+    }
+
     public function testGenerateORM()
     {
-        $this->generate('orm');
+        $this->filesystem->dumpFile($this->tmpDir . '/Model/Manager/FooManagerInterface.php', '');
+        $this->generate('orm', 'xml');
 
         $files = array(
             'Doctrine/EntityManager/FooManager.php',
@@ -42,7 +51,8 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
 
     public function testGenerateMongoDb()
     {
-        $this->generate('mongodb');
+        $this->filesystem->dumpFile($this->tmpDir . '/Model/Manager/FooManagerInterface.php', '');
+        $this->generate('mongodb', 'xml');
 
         $files = array(
             'Doctrine/MongoDBDocumentManager/FooManager.php',
@@ -85,9 +95,9 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
         }
     }
 
-    protected function generate($dbDriver)
+    protected function generate($dbDriver, $format)
     {
-        $this->getGenerator()->generate($this->getBundle(), 'Foo', $dbDriver);
+        $this->getGenerator()->generate($this->getBundle(), 'Foo', $dbDriver, $format);
     }
 
     protected function getGenerator()

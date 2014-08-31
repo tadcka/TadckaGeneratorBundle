@@ -60,7 +60,7 @@ class GenerateTadckaModelManagerCommand extends GenerateTadckaCommand
         $generator = $this->getGenerator();
         $generator->generate($bundle, $model);
 
-        $output->writeln('Generating the model code: <info>OK</info>');
+        $output->writeln('Generating the model manager code: <info>OK</info>');
 
         $dialog->writeGeneratorSummary($output, array());
     }

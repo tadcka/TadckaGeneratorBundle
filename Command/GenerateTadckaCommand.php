@@ -12,7 +12,11 @@
 namespace Tadcka\Bundle\GeneratorBundle\Command;
 
 use Sensio\Bundle\GeneratorBundle\Command\GeneratorCommand;
+use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Tadcka\Bundle\GeneratorBundle\ModelManagerInfo;
 
 /**
  * @author Tadas Gliaubicas <tadcka89@gmail.com>
@@ -21,6 +25,26 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  */
 abstract class GenerateTadckaCommand extends GeneratorCommand
 {
+    protected function addDbDriver(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
+    {
+        $dbDrivers = array_keys(ModelManagerInfo::getDoctrineManagerDrivers());
+        $dbDriverOption = $input->getOption('db-driver');
+        $dbDriverValidator = array('Tadcka\Bundle\GeneratorBundle\Command\Validators', 'validateDbDriver');
+        $dbDriverQuestion = $dialog->getQuestion('Configuration db driver (orm, mongodb)', $dbDriverOption);
+
+        return $dialog->askAndValidate($output, $dbDriverQuestion, $dbDriverValidator, false, $dbDriverOption, $dbDrivers);
+    }
+
+    protected function addFormat(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
+    {
+        $formats = array('yml', 'xml', 'php');
+        $formatOption = $input->getOption('format');
+        $formatValidator = array('Tadcka\Bundle\GeneratorBundle\Command\Validators', 'validateFormat');
+        $formatQuestion = $dialog->getQuestion('Configuration format (yml, xml, or php)', $formatOption);
+
+        return $dialog->askAndValidate($output, $formatQuestion, $formatValidator, false, $formatOption, $formats);
+    }
+
     protected function parseShortcutNotation($shortcut)
     {
         $model = str_replace('/', '\\', $shortcut);

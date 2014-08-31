@@ -49,6 +49,11 @@ class TadckaModelManagerGenerator extends Generator
     {
         $dir = $bundle->getPath();
 
+        $modelInterface = $dir . '/Model/' . $model . 'Interface.php';
+        if (false === $this->filesystem->exists($modelInterface)) {
+            throw new \RuntimeException(sprintf('Model interface "%s" not exists', $modelInterface));
+        }
+
         $managerInterfaceFile = $dir . '/Model/Manager/' . $model . 'ManagerInterface.php';
         if ($this->filesystem->exists($managerInterfaceFile)) {
             throw new \RuntimeException(sprintf('Model manager interface "%s" already exists', $managerInterfaceFile));

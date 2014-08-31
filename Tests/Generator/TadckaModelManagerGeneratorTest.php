@@ -20,8 +20,17 @@ use Tadcka\Bundle\GeneratorBundle\Generator\TadckaModelManagerGenerator;
  */
 class TadckaModelManagerGeneratorTest extends GeneratorTest
 {
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGenerateModelInterfaceNotExists()
+    {
+        $this->generate();
+    }
+
     public function testGenerate()
     {
+        $this->filesystem->dumpFile($this->tmpDir . '/Model/FooInterface.php', '');
         $this->generate();
 
         $files = array(

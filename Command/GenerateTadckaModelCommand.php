@@ -17,7 +17,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Tadcka\Bundle\GeneratorBundle\Generator\TadckaModelGenerator;
-use Tadcka\Bundle\GeneratorBundle\ModelManagerInfo;
 
 /**
  * @author Tadas Gliaubicas <tadcka89@gmail.com>
@@ -165,34 +164,6 @@ EOT
         $output->writeln($summary);
     }
 
-    private function addDbDriver(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
-    {
-        $dbDrivers = array_keys(ModelManagerInfo::getDoctrineManagerDrivers());
-        $dbDriverOption = $input->getOption('db-driver');
-        $dbDriverValidator = array('Tadcka\Bundle\GeneratorBundle\Command\Validators', 'validateDbDriver');
-        $dbDriverQuestion = $dialog->getQuestion('Configuration db driver (orm, mongodb)', $dbDriverOption);
-
-        return $dialog->askAndValidate($output, $dbDriverQuestion, $dbDriverValidator, false, $dbDriverOption, $dbDrivers);
-    }
-
-    private function addWithManager(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
-    {
-        $withManagerOption = $input->getOption('with-manager');
-        $withManagerQuestion = $dialog->getQuestion('Do you want to generate an model manager class', $withManagerOption ? 'yes' : 'no', '?');
-
-        return $dialog->askConfirmation($output, $withManagerQuestion, $withManagerOption);
-    }
-
-    private function addFormat(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
-    {
-        $formats = array('yml', 'xml', 'php');
-        $formatOption = $input->getOption('format');
-        $formatValidator = array('Tadcka\Bundle\GeneratorBundle\Command\Validators', 'validateFormat');
-        $formatQuestion = $dialog->getQuestion('Configuration format (yml, xml, or php)', $formatOption);
-
-        return $dialog->askAndValidate($output, $formatQuestion, $formatValidator, false, $formatOption, $formats);
-    }
-
     private function addModel(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
     {
         $bundleNames = array_keys($this->getContainer()->get('kernel')->getBundles());
@@ -219,6 +190,14 @@ EOT
         }
 
         return array('bundle_name' => $bundleName, 'model' => $model);
+    }
+
+    private function addWithManager(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
+    {
+        $withManagerOption = $input->getOption('with-manager');
+        $withManagerQuestion = $dialog->getQuestion('Do you want to generate an model manager class', $withManagerOption ? 'yes' : 'no', '?');
+
+        return $dialog->askConfirmation($output, $withManagerQuestion, $withManagerOption);
     }
 
     private function addFields(InputInterface $input, OutputInterface $output, DialogHelper $dialog)

@@ -9,17 +9,39 @@
  * file that was distributed with this source code.
  */
 
-namespace Tadcka\Bundle\GeneratorBundle\Tests\Generator;
+namespace Tadcka\Bundle\GeneratorBundle\Tests;
 
-use Sensio\Bundle\GeneratorBundle\Tests\Generator\GeneratorTest as BaseGeneratorTest;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @author Tadas Gliaubicas <tadcka89@gmail.com>
  *
- * @since 8/30/14 3:11 PM
+ * @since 8/31/14 4:03 PM
  */
-abstract class GeneratorTest extends BaseGeneratorTest
+abstract class GeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Filesystem
+     */
+    protected $filesystem;
+
+    /**
+     * @var string
+     */
+    protected $tmpDir;
+
+    protected function setUp()
+    {
+        $this->tmpDir = sys_get_temp_dir() . '/sf2';
+        $this->filesystem = new Filesystem();
+        $this->filesystem->remove($this->tmpDir);
+    }
+
+    protected function tearDown()
+    {
+        $this->filesystem->remove($this->tmpDir);
+    }
+
     protected function getBundle()
     {
         $bundle = $this->getMock('Symfony\Component\HttpKernel\Bundle\BundleInterface');

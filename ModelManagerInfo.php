@@ -48,4 +48,20 @@ class ModelManagerInfo
     {
         return self::$drivers['doctrine'];
     }
+
+    /**
+     * Get manager folder name.
+     *
+     * @param string $dbDriver
+     *
+     * @return string
+     */
+    public static function getManagerFolderName($dbDriver)
+    {
+        if (self::isDoctrineManager($dbDriver)) {
+            return 'Doctrine\\' . self::$drivers['doctrine'][$dbDriver];
+        }
+
+        return self::$drivers[$dbDriver];
+    }
 }

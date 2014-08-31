@@ -12,6 +12,7 @@
 namespace Tadcka\Bundle\GeneratorBundle\Tests\Generator;
 
 use Tadcka\Bundle\GeneratorBundle\Generator\TadckaModelManagerGenerator;
+use Tadcka\Bundle\GeneratorBundle\Tests\GeneratorTest;
 
 /**
  * @author Tadas Gliaubicas <tadcka89@gmail.com>

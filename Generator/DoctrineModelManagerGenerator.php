@@ -15,6 +15,7 @@ use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Tadcka\Bundle\GeneratorBundle\Manipulator\DbDriverManipulator;
 use Tadcka\Bundle\GeneratorBundle\ModelManagerInfo;
 
 /**
@@ -85,9 +86,10 @@ class DoctrineModelManagerGenerator extends Generator
 
         $configFile = $dir . '/Resources/config/db_driver/' . $dbDriver . '.xml' ;
         if ($this->filesystem->exists($configFile)) {
-            throw new \RuntimeException(sprintf('Doctrine model manager configure file "%s" already exists', $managerFile));
+            $manipulator = new DbDriverManipulator($configFile);
+            $manipulator->addResource($bundle, $model, $dbDriver);
+        } else {
+            $this->renderFile('resources/config/db_driver/' . $dbDriver . '.xml.twig', $configFile, $parameters);
         }
-
-        $this->renderFile('resources/config/db_driver/' . $dbDriver . '.xml.twig', $configFile, $parameters);
     }
 }

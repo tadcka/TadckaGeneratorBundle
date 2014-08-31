@@ -33,7 +33,7 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function get{{ field.name|capitalize }}()
+    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.name|capitalize }}()
     {
         return $this->{{ field.name }};
     }

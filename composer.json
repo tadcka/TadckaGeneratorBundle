@@ -1,7 +1,7 @@
 {
     "name":         "tadcka/generator-bundle",
     "homepage":     "https://github.com/tadcka/TadckaGeneratorBundle",
-    "description":  "Generates models structure.",
+    "description":  "Symfony2 Code Generator. Generate model structure.",
     "keywords":     [],
     "type": "symfony-bundle",
     "license": "MIT",

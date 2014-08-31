@@ -17,18 +17,18 @@ interface {{ model_name }}ManagerInterface
     /**
      * Add {{ model_name }} object from persistent layer.
      *
-     * @param {{ model_name }}Interface $value
+     * @param {{ model_name }}Interface ${{ value }}
      * @param bool $save
      */
-    public function add({{ model_name }}Interface $value, $save = false);
+    public function add({{ model_name }}Interface ${{ value }}, $save = false);
 
     /**
      * Remove {{ model_name }} object from persistent layer.
      *
-     * @param {{ model_name }}Interface $value
+     * @param {{ model_name }}Interface ${{ value }}
      * @param bool $save
      */
-    public function remove({{ model_name }}Interface $value, $save = false);
+    public function remove({{ model_name }}Interface ${{ value }}, $save = false);
 
     /**
      * Save persistent layer.

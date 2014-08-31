@@ -66,6 +66,7 @@ class DoctrineModelManagerGenerator extends Generator
         $parameters = array(
             'namespace' => $bundle->getNamespace(),
             'model_name' => $model,
+            'value' => lcfirst($model),
         );
 
         $this->renderFile(

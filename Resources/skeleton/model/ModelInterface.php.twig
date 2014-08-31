@@ -27,7 +27,7 @@ interface {{ model_name }}Interface
      *
      * @return {{ field.type }}
      */
-    public function get{{ field.name|capitalize }}();
+    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.name|capitalize }}();
 {% if field.type == 'array' %}
 
     /**

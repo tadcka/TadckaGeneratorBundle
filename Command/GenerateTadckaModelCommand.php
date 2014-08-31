@@ -55,7 +55,7 @@ The command can also generate the corresponding model manager class with the
 
 <info>php app/console tadcka:generate:model --model=AcmeBlogBundle:Blog/Post --with-manager</info>
 
-By default, the command uses annotations for the mapping information; change it
+By default, the command uses xml for configuration files; change it
 with <comment>--format</comment>:
 
 <info>php app/console tadcka:generate:model --model=AcmeBlogBundle:Blog/Post --format=yml</info>

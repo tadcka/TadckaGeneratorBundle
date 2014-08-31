@@ -62,6 +62,7 @@ class TadckaModelManagerGenerator extends Generator
         $parameters = array(
             'namespace'  => $bundle->getNamespace(),
             'model_name' => $model,
+            'value' => lcfirst($model),
         );
 
         $this->renderFile('model/manager/ModelManagerInterface.php.twig', $managerInterfaceFile, $parameters);

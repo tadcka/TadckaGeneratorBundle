@@ -42,9 +42,9 @@ class {{ model_name }}Manager extends Base{{ model_name }}Manager
     /**
      * {@inheritdoc}
      */
-    public function add({{ model_name }}Interface $value, $save = false)
+    public function add({{ model_name }}Interface ${{ value }}, $save = false)
     {
-        $this->om->persist($value);
+        $this->om->persist(${{ value }});
         if (true === $save) {
             $this->save();
         }
@@ -53,9 +53,9 @@ class {{ model_name }}Manager extends Base{{ model_name }}Manager
     /**
      * {@inheritdoc}
      */
-    public function remove({{ model_name }}Interface $value, $save = false)
+    public function remove({{ model_name }}Interface ${{ value }}, $save = false)
     {
-        $this->om->remove($value);
+        $this->om->remove(${{ value }});
         if (true === $save) {
             $this->save();
         }

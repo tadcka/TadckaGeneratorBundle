@@ -5,4 +5,4 @@ TadckaGeneratorBundle
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/?branch=master)
 
-Generates models structure.
+Symfony2 Code Generator. Generate model structure.

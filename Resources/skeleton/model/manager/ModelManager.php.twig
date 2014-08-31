@@ -1,7 +1,11 @@
 <?php
+{% block phpdoc_header %}
+{% endblock phpdoc_header %}
 
 namespace {{ namespace }}\Model\Manager;
 
+{% block phpdoc_author %}
+{% endblock phpdoc_author %}
 abstract class {{ model_name }}Manager implements {{ model_name }}ManagerInterface
 {
 {% block class_body %}

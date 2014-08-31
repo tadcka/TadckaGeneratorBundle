@@ -1,4 +1,6 @@
 <?php
+{% block phpdoc_header %}
+{% endblock phpdoc_header %}
 
 namespace {{ namespace }}\Model;
 {% if uses is not empty %}
@@ -8,6 +10,8 @@ use {{ use }};
 {% endfor %}
 {% endif %}
 
+{% block phpdoc_author %}
+{% endblock phpdoc_author %}
 class {{ model_name }} implements {{ model_name }}Interface
 {
 {% block class_body %}

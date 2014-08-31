@@ -1,9 +1,13 @@
 <?php
+{% block phpdoc_header %}
+{% endblock phpdoc_header %}
 
 namespace {{ namespace }}\Model\Manager;
 
 use {{ namespace }}\Model\{{ model_name }}Interface;
 
+{% block phpdoc_author %}
+{% endblock phpdoc_author %}
 interface {{ model_name }}ManagerInterface
 {
 {% block class_body %}

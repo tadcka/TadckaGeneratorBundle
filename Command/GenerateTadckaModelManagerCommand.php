@@ -85,7 +85,7 @@ class GenerateTadckaModelManagerCommand extends GenerateTadckaCommand
             )
         );
 
-        $modelInfo = $this->addModel($input, $output, $dialog);
+        $modelInfo = $this->getModel($input, $output, $dialog);
 
         $input->setOption('model', $modelInfo['bundle_name'] . ':' . $modelInfo['model']);
 
@@ -101,7 +101,7 @@ class GenerateTadckaModelManagerCommand extends GenerateTadckaCommand
         $output->writeln($summary);
     }
 
-    private function addModel(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
+    private function getModel(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
     {
         $bundleNames = array_keys($this->getContainer()->get('kernel')->getBundles());
         $modelValidator = array('Tadcka\Bundle\GeneratorBundle\Command\Validators', 'validateModelName');

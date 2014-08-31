@@ -12,6 +12,7 @@
 namespace Tadcka\Bundle\GeneratorBundle\Generator;
 
 use Sensio\Bundle\GeneratorBundle\Generator\Generator;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Tadcka\Bundle\GeneratorBundle\ModelManagerInfo;
@@ -70,16 +71,23 @@ class DoctrineModelManagerGenerator extends Generator
             throw new \RuntimeException(sprintf('Doctrine model manager "%s" already exists', $managerFile));
         }
 
+        $basename = substr($bundle->getName(), 0, -6);
         $parameters = array(
             'namespace' => $bundle->getNamespace(),
             'model_name' => $model,
             'value' => lcfirst($model),
+            'extension_alias' => Container::underscore($basename),
+            'model_name_underscore' => Container::underscore($model),
+            'manager_file' => $bundle->getNamespace() . '\\Doctrine\\' . $managerDrivers[$dbDriver] . '\\' . $model . 'Manager',
         );
 
-        $this->renderFile(
-            'model/doctrine/manager/' . $managerDrivers[$dbDriver] . '.php.twig',
-            $managerFile,
-            $parameters
-        );
+        $this->renderFile('doctrine/manager/' . $managerDrivers[$dbDriver] . '.php.twig', $managerFile, $parameters);
+
+        $configFile = $dir . '/Resources/config/db_driver/' . $dbDriver . '.xml' ;
+        if ($this->filesystem->exists($configFile)) {
+            throw new \RuntimeException(sprintf('Doctrine model manager configure file "%s" already exists', $managerFile));
+        }
+
+        $this->renderFile('resources/config/db_driver/' . $dbDriver . '.xml.twig', $configFile, $parameters);
     }
 }

@@ -37,6 +37,8 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
             'Doctrine/EntityManager/FooManager.php',
         );
 
+        $this->assertFilesExists($files);
+
         $otherStrings = array(
 
             'use Doctrine\\ORM\\EntityManager;',
@@ -45,8 +47,14 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
             'public function __construct(EntityManager $em, $class)'
         );
 
-        $this->assertFilesExists($files);
         $this->assertModelManagerAttributesAndMethodsExists('EntityManager', $otherStrings);
+
+        $otherStrings = array(
+            '<parameter key="foo_bar.manager.foo.class">Foo\BarBundle\Doctrine\EntityManager\FooManager</parameter>',
+            '<argument type="service" id="doctrine.orm.entity_manager" />',
+        );
+
+        $this->assertDbDriverConfiguration('orm', 'xml', $otherStrings);
     }
 
     public function testGenerateMongoDb()
@@ -58,6 +66,8 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
             'Doctrine/MongoDBDocumentManager/FooManager.php',
         );
 
+        $this->assertFilesExists($files);
+
         $otherStrings = array(
 
             'use Doctrine\\ODM\\MongoDB\\DocumentManager;',
@@ -66,13 +76,35 @@ class DoctrineModelManagerGeneratorTest extends GeneratorTest
             'public function __construct(DocumentManager $om, $class)'
         );
 
-        $this->assertFilesExists($files);
         $this->assertModelManagerAttributesAndMethodsExists('MongoDBDocumentManager', $otherStrings);
+
+        $otherStrings = array(
+            '<parameter key="foo_bar.manager.foo.class">Foo\BarBundle\Doctrine\MongoDBDocumentManager\FooManager</parameter>',
+            '<argument type="service" id="doctrine.odm.mongodb.document_manager" />',
+        );
+
+        $this->assertDbDriverConfiguration('mongodb', 'xml', $otherStrings);
+    }
+
+    protected function assertDbDriverConfiguration($dbDriver, $format, array $otherStrings = array())
+    {
+        $content = file_get_contents($this->tmpDir . '/Resources/config/db_driver/' . $dbDriver . '.' . $format);
+
+        $strings = array(
+            '<service id="foo_bar.manager.foo.default" class="%foo_bar.manager.foo.class%">',
+            '<argument>%foo_bar.model.foo.class%</argument>'
+        );
+
+        $strings = array_merge($strings, $otherStrings);
+
+        foreach ($strings as $string) {
+            $this->assertContains($string, $content);
+        }
     }
 
     protected function assertModelManagerAttributesAndMethodsExists($managerDirName, array $otherStrings = array())
     {
-        $content = file_get_contents($this->tmpDir.'/Doctrine/' . $managerDirName . '/FooManager.php');
+        $content = file_get_contents($this->tmpDir . '/Doctrine/' . $managerDirName . '/FooManager.php');
 
         $strings = array(
             'namespace Foo\\BarBundle\\Doctrine\\' . $managerDirName,

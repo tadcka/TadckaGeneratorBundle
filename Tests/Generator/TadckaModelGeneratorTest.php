@@ -20,9 +20,9 @@ use Tadcka\Bundle\GeneratorBundle\Generator\TadckaModelGenerator;
  */
 class TadckaModelGeneratorTest extends GeneratorTest
 {
-    public function testGenerateXml()
+    public function testGenerate()
     {
-        $this->generate('xml');
+        $this->generate();
 
         $files = array(
             'Model/FooInterface.php',
@@ -76,14 +76,14 @@ class TadckaModelGeneratorTest extends GeneratorTest
         }
     }
 
-    protected function generate($format, $withManager = false)
+    protected function generate($withManager = false)
     {
-        $this->getGenerator()->generate($this->getBundle(), 'Foo', $format, $this->getFields(), $withManager, null);
+        $this->getGenerator()->generate($this->getBundle(), 'Foo', $this->getFields(), $withManager, null, null);
     }
 
     protected function getGenerator()
     {
-        $generator = new TadckaModelGenerator($this->filesystem);
+        $generator = new TadckaModelGenerator($this->filesystem, $this->tmpDir);
         $generator->setSkeletonDirs(__DIR__ . '/../../Resources/skeleton');
 
         return $generator;
@@ -92,8 +92,9 @@ class TadckaModelGeneratorTest extends GeneratorTest
     protected function getFields()
     {
         return array(
-            array('fieldName' => 'bar', 'type' => 'string', 'length' => 255),
-            array('fieldName' => 'baz', 'type' => 'integer', 'length' => 11),
+            array('name' => 'bar', 'type' => 'string'),
+            array('name' => 'baz', 'type' => 'int'),
+            array('name' => 'acme', 'type' => 'Foo\\BarBundle\\Model\\AcmeInterface'),
         );
     }
 }

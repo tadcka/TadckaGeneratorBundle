@@ -1,6 +1,12 @@
 <?php
 
 namespace {{ namespace }}\Model;
+{% if uses is not empty %}
+
+{% for use in uses %}
+use {{ use }};
+{% endfor %}
+{% endif %}
 
 class {{ model_name }} implements {{ model_name }}Interface
 {
@@ -10,16 +16,16 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * @var {{ field.type }}
      */
-    protected ${{ field.fieldName }}
+    protected ${{ field.name }};
 {% endfor %}
 {% for field in fields %}
 
     /**
      * {@inheritdoc}
      */
-    public function set{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    public function set{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
-        $this->{{ field.fieldName }} = ${{ field.fieldName }};
+        $this->{{ field.name }} = ${{ field.name }};
 
         return $this;
     }
@@ -27,26 +33,26 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function get{{ field.fieldName|capitalize }}()
+    public function get{{ field.name|capitalize }}()
     {
-        return $this->{{ field.fieldName }};
+        return $this->{{ field.name }};
     }
 {% if field.type == 'array' %}
 
     /**
      * {@inheritdoc}
      */
-    public function add{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    public function add{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
-        $this->{{ field.fieldName }}[] = ${{ field.fieldName }};
+        $this->{{ field.name }}[] = ${{ field.name }};
     }
 
     /**
      * {@inheritdoc}
      */
-    public function remove{{ field.fieldName|capitalize }}(${{ field.fieldName }})
+    public function remove{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
-        // TODO: Implement remove{{ field.fieldName|capitalize }}() method.
+        // TODO: Implement remove{{ field.name|capitalize }}() method.
     }
 {% endif %}
 {% endfor %}

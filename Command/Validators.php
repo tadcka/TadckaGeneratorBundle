@@ -42,4 +42,15 @@ class Validators extends BaseValidators
 
         return $model;
     }
+
+    public static function validateDbDriver($dbDriver)
+    {
+        $dbDriver = strtolower($dbDriver);
+
+        if (!in_array($dbDriver, array('orm', 'mongodb'))) {
+            throw new \RuntimeException(sprintf('Db driver "%s" is not supported.', $dbDriver));
+        }
+
+        return $dbDriver;
+    }
 }

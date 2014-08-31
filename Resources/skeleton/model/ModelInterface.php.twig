@@ -1,6 +1,12 @@
 <?php
 
 namespace {{ namespace }}\Model;
+{% if uses is not empty %}
+
+{% for use in uses %}
+use {{ use }};
+{% endfor %}
+{% endif %}
 
 interface {{ model_name }}Interface
 {
@@ -8,35 +14,35 @@ interface {{ model_name }}Interface
 {% for field in fields %}
 
     /**
-     * Set {{ field.fieldName }}.
+     * Set {{ field.name }}.
      *
-     * @param {{ field.type }} ${{ field.fieldName }}
+     * @param {{ field.type }} ${{ field.name }}
      *
      * @return {{ model_name }}Interface
      */
-    public function set{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+    public function set{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 
     /**
-     * Get {{ field.fieldName }}.
+     * Get {{ field.name }}.
      *
      * @return {{ field.type }}
      */
-    public function get{{ field.fieldName|capitalize }}();
+    public function get{{ field.name|capitalize }}();
 {% if field.type == 'array' %}
 
     /**
-     * Add {{ field.fieldName }}.
+     * Add {{ field.name }}.
      *
-     * @param {{ field.type }} ${{ field.fieldName }}
+     * @param {{ field.type }} ${{ field.name }}
      */
-    public function add{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+    public function add{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 
     /**
-     * Remove {{ field.fieldName }}.
+     * Remove {{ field.name }}.
      *
-     * @param {{ field.type }} ${{ field.fieldName }}
+     * @param {{ field.type }} ${{ field.name }}
      */
-    public function remove{{ field.fieldName|capitalize }}(${{ field.fieldName }});
+    public function remove{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 {% endif %}
 {% endfor %}
 {% endblock class_body %}

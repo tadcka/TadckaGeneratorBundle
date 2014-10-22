@@ -259,7 +259,11 @@ EOT
             $fieldTypeQuestion = $dialog->getQuestion('Field type', 'string');
             $type = $dialog->askAndValidate($output, $fieldTypeQuestion, $fieldValidator, false, 'string', $types);
 
-            $fields[$fieldName] = array('name' => lcfirst(Container::camelize($fieldName)), 'type' => $type);
+            $fields[$fieldName] = array(
+                'name' => lcfirst(Container::camelize($fieldName)),
+                'methodName' => ucfirst(Container::camelize($fieldName)),
+                'type' => $type
+            );
         }
 
         return $fields;

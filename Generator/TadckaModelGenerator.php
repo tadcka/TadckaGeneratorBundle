@@ -79,6 +79,8 @@ class TadckaModelGenerator extends Generator
                 $namespace = explode('\\', $field['type']);
                 $field['type'] = end($namespace);
                 $field['is_argument_type'] = true;
+            } elseif ('\DateTime' === $field['type']) {
+                $field['is_argument_type'] = true;
             }
         }
 

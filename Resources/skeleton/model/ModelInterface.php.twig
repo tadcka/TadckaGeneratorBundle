@@ -24,14 +24,14 @@ interface {{ model_name }}Interface
      *
      * @return {{ model_name }}Interface
      */
-    public function set{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
+    public function set{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 
     /**
      * Get {{ field.name }}.
      *
      * @return {{ field.type }}
      */
-    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.name|capitalize }}();
+    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.methodName }}();
 {% if field.type == 'array' %}
 
     /**
@@ -39,14 +39,14 @@ interface {{ model_name }}Interface
      *
      * @param {{ field.type }} ${{ field.name }}
      */
-    public function add{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
+    public function add{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 
     /**
      * Remove {{ field.name }}.
      *
      * @param {{ field.type }} ${{ field.name }}
      */
-    public function remove{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
+    public function remove{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }});
 {% endif %}
 {% endfor %}
 {% endblock class_body %}

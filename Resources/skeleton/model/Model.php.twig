@@ -27,7 +27,7 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function set{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
+    public function set{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
         $this->{{ field.name }} = ${{ field.name }};
 
@@ -37,7 +37,7 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.name|capitalize }}()
+    public function {% if field.type == 'bool' %}is{% else %}get{% endif %}{{ field.methodName }}()
     {
         return $this->{{ field.name }};
     }
@@ -46,7 +46,7 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function add{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
+    public function add{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
         $this->{{ field.name }}[] = ${{ field.name }};
     }
@@ -54,9 +54,9 @@ class {{ model_name }} implements {{ model_name }}Interface
     /**
      * {@inheritdoc}
      */
-    public function remove{{ field.name|capitalize }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
+    public function remove{{ field.methodName }}({% if field.is_argument_type %}{{ field.type }} {% endif %}${{ field.name }})
     {
-        // TODO: Implement remove{{ field.name|capitalize }}() method.
+        // TODO: Implement remove{{ field.methodName }}() method.
     }
 {% endif %}
 {% endfor %}

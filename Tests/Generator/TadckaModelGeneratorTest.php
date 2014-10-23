@@ -93,9 +93,9 @@ class TadckaModelGeneratorTest extends GeneratorTest
     protected function getFields()
     {
         return array(
-            array('name' => 'bar', 'type' => 'string'),
-            array('name' => 'baz', 'type' => 'int'),
-            array('name' => 'acme', 'type' => 'Foo\\BarBundle\\Model\\AcmeInterface'),
+            array('name' => 'bar', 'methodName' => 'Bar', 'type' => 'string'),
+            array('name' => 'baz', 'methodName' => 'Baz', 'type' => 'int'),
+            array('name' => 'acme', 'methodName' => 'Acme', 'type' => 'Foo\\BarBundle\\Model\\AcmeInterface'),
         );
     }
 }

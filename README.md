@@ -6,3 +6,8 @@ TadckaGeneratorBundle
 [![Code Coverage](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tadcka/TadckaGeneratorBundle/?branch=master)
 
 Symfony2 Code Generator. Generate model structure.
+
+Authors
+---------
+
+The bundle was originally created by Tadas Gliaubicas. See the list of [contributors](https://github.com/tadcka/TadckaGeneratorBundle/contributors).
